@@ -1,0 +1,94 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Admin Dashboard - CloudDB Secure{% endblock %}
+
+{% block sidebar %}
+<li><a href="{{ url_for('admin.dashboard') }}" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+<li><a href="{{ url_for('admin.user_management') }}"><i class="fas fa-users"></i> User Management</a></li>
+<li><a href="{{ url_for('admin.fee_configuration') }}"><i class="fas fa-money-bill-wave"></i> Fee Configuration</a></li>
+<li><a href="{{ url_for('admin.complaint_review') }}"><i class="fas fa-comment-dots"></i> Complaint Review</a></li>
+<li><a href="{{ url_for('admin.system_reports') }}"><i class="fas fa-chart-bar"></i> System Reports</a></li>
+<li><a href="{{ url_for('admin.audit_logs') }}"><i class="fas fa-history"></i> Audit Logs</a></li>
+<li><a href="{{ url_for('admin.secrets') }}"><i class="fas fa-key"></i> Secret Sharing</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="page-header">
+    <h1 class="page-title"><i class="fas fa-tachometer-alt"></i> Administrator Dashboard</h1>
+    <p class="page-subtitle">Welcome back! Here's an overview of your system.</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+            <h3>{{ stats.total_users }}</h3>
+            <p>Total Users</p>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #FEF3C7;">
+            <i class="fas fa-exclamation-circle" style="color: #D97706;"></i>
+        </div>
+        <div class="stat-content">
+            <h3>{{ stats.pending_complaints }}</h3>
+            <p>Pending Complaints</p>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #D1FAE5;">
+            <i class="fas fa-credit-card" style="color: #059669;"></i>
+        </div>
+        <div class="stat-content">
+            <h3>{{ stats.total_payments }}</h3>
+            <p>Total Payments</p>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon" style="background: #DBEAFE;">
+            <i class="fas fa-dollar-sign" style="color: #2563EB;"></i>
+        </div>
+        <div class="stat-content">
+            <h3>${{ "%.2f"|format(stats.total_revenue) }}</h3>
+            <p>Total Revenue</p>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-shield-alt"></i> Security Status</h3>
+        </div>
+        <div style="text-align: center; padding: 20px;">
+            <div style="width: 100px; height: 100px; background: #D1FAE5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                <i class="fas fa-lock" style="font-size: 2.5rem; color: #059669;"></i>
+            </div>
+            <h4 style="color: #059669; margin-bottom: 8px;">System Secure</h4>
+            <p style="color: var(--text-secondary);">All encryption protocols active</p>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-bolt"></i> Quick Actions</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="{{ url_for('admin.user_management') }}" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Manage Users
+            </a>
+            <a href="{{ url_for('admin.fee_configuration') }}" class="btn btn-secondary">
+                <i class="fas fa-plus-circle"></i> Add New Fee
+            </a>
+            <a href="{{ url_for('admin.complaint_review') }}" class="btn btn-secondary">
+                <i class="fas fa-comment-dots"></i> Review Complaints
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
